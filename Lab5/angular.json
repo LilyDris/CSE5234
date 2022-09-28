@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Lab5": {
+    "angular.io-example": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lab5",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Lab5:build:production"
+              "browserTarget": "angular.io-example:build:production"
             },
             "development": {
-              "browserTarget": "Lab5:build:development"
+              "browserTarget": "angular.io-example:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Lab5:build"
+            "browserTarget": "angular.io-example:build"
           }
         },
         "test": {
@@ -94,11 +98,23 @@
             ],
             "scripts": []
           }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "angular.io-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular.io-example:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "176cbc0d-e0f8-43e9-b2da-3cc7197ced3a"
+    "analytics": false
   }
 }
