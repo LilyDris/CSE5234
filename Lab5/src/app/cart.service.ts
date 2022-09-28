@@ -14,6 +14,7 @@ addToCart(product: Product) {
   this.items.push(product);
 }
 
+
 getItems() {
   return this.items;
 }

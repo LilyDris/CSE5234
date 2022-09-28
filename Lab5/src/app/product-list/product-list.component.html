@@ -5,12 +5,14 @@
             <a [title] = "product.name"
             [routerLink]=" ['/products', product.id]">
 
-            {{product.name}}   {{ product.price | currency}}
+            {{product.name}}   
             </a>    
+            {{ product.price | currency}}
         </h3>
         <p *ngIf="product.description">
             Description: {{ product.description }}
           </p>
+          <p><button type="button" (click)="addToCart(product)">Add to Cart</button></p>
 <!-- 
           <button type="button" (click)="share()">
             Share
