@@ -12,7 +12,16 @@
         <p *ngIf="product.description">
             Description: {{ product.description }}
           </p>
-          <p><button type="button" (click)="addToCart(product)">Add to Cart</button></p>
+          <form [formGroup]="checkoutForm" (ngSubmit)="addToCart(product, amount)">
+            <div>
+              <label for="name">
+                Amount
+              </label>
+              <input id="amount" type="text" formControlName="amount">
+            </div>
+            <button class="button" type="submit">Add to Cart</button>
+          
+          </form>
 <!-- 
           <button type="button" (click)="share()">
             Share

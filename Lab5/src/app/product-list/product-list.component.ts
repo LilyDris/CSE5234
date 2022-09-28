@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
 import { Product, products } from '../products';
 import { CartService } from '../cart.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
@@ -10,18 +9,24 @@ import { CartService } from '../cart.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
+  amount = 1;
   products = products;
   product: Product | undefined;
 
-  constructor(private cartService: CartService){
+  constructor(private cartService: CartService, private formBuilder: FormBuilder){
   }
 
   share() {
     window.alert('The product has been shared!');
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
+  addToCart(product: Product, amount: Number) {
+    this.cartService.addToCartAmount(product, amount);
     window.alert('Your product has been added to the cart!');
   }
+
+  checkoutForm = this.formBuilder.group({
+    product: 0,
+    amount: 1
+  });
 }

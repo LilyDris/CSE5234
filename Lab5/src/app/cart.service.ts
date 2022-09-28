@@ -14,6 +14,11 @@ addToCart(product: Product) {
   this.items.push(product);
 }
 
+addToCartAmount(product: Product, amount: Number){
+  for(let i=0; i<amount ;i++) {
+   this.items.push(product);
+  }
+}
 
 getItems() {
   return this.items;
