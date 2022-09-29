@@ -1,8 +1,17 @@
-<h3>Cart</h3>
-<p>
-    <a routerLink="/shipping">Shipping Prices</a>
-  </p>
+<h3>Shopping Cart</h3>
+
+<h2>{{items?.length}} Items</h2>
+<hr class="solid">
 <div class="cart-item" *ngFor="let item of items">
   <span>{{ item.name }}</span>
   <span>{{ item.price | currency }}</span>
 </div>
+<div >
+  <h2>Total amount:</h2>
+  <hr class="solid">
+  <span class="cart-item">{{getTotal() | currency}}</span>
+</div>
+
+<a routerLink="/shipping" class="button">
+ Continue to shipping method
+</a>
