@@ -26,7 +26,7 @@ export class ProductListComponent {
   }
 
   checkoutForm = this.formBuilder.group({
-    product: 0,
+    product: '',
     amount: 1
   });
 }
