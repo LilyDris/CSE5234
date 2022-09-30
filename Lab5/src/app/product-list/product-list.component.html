@@ -14,10 +14,10 @@
           </p>
           <form [formGroup]="checkoutForm" (ngSubmit)="addToCart(product, amount)">
             <div>
-              <label for="name">
+              <label for="amount">
                 Amount
               </label>
-              <input id="amount" type="text" formControlName="amount">
+              <input id="amount" type="text" [(ngModel)]="amount" formControlName="amount">
             </div>
             <button class="button" type="submit">Add to Cart</button>
           

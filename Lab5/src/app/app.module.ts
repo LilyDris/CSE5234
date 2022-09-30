@@ -16,6 +16,8 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { PaymentComponent } from './payment/payment.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
       { path: '', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: CartComponent },
-      {path: 'shipping', component: ShippingComponent},
+      { path: 'shipping', component: ShippingComponent},
+      { path: 'payment', component: PaymentComponent},
+      { path: 'summary', component: SummaryComponent}
     ])
   ],
   declarations: [
@@ -41,6 +45,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ProductDetailsComponent,
     CartComponent,
     ShippingComponent,
+    PaymentComponent,
+    SummaryComponent,
   ],
   bootstrap: [
     AppComponent
