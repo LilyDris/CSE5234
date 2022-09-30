@@ -1,0 +1,33 @@
+<h3>Payment Information</h3>
+
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="cardNumber">
+        Card Number
+      </label>
+      <input id="cardNumber" type="text" formControlName="cardNumber">
+    </div>
+
+    <div>
+        <label for="cvv">
+          CVV
+        </label>
+        <input id="cvv" type="text" formControlName="cvv">
+      </div>
+    
+      <div>
+        <label for="expiryYear">
+          Expiry Year
+        </label>
+        <input id="expiryYear" type="text" formControlName="expiryYear">
+      </div>
+
+      <div>
+        <label for="expiryMonth">
+          Expiry Year
+        </label>
+        <input id="expiryMonth" type="text" formControlName="expiryMonth">
+      </div>
+    <button class="button" type="submit">Continue to Summary</button>
+  
+  </form>
