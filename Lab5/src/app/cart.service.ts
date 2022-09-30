@@ -11,8 +11,15 @@ export class CartService {
   constructor(private http: HttpClient){
   }
   items: Product[] = [];
+  total: number=0;
 
 /* . . . */
+getTotal(){
+  for(let item of this.items){
+    this.total=this.total+item.price;
+  }
+  return this.total;
+}
 addToCart(product: Product) {
   this.items.push(product);
 }
