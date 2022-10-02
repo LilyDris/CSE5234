@@ -12,6 +12,7 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { PaymentComponent } from './payment/payment.component';
 import { SummaryComponent } from './summary/summary.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SummaryComponent } from './summary/summary.component';
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent},
       { path: 'payment', component: PaymentComponent},
-      { path: 'summary', component: SummaryComponent}
+      { path: 'summary', component: SummaryComponent},
+      { path: 'confirmation', component: ConfirmationComponent}
     ])
   ],
   declarations: [
@@ -36,6 +38,7 @@ import { SummaryComponent } from './summary/summary.component';
     ShippingComponent,
     PaymentComponent,
     SummaryComponent,
+    ConfirmationComponent,
   ],
   bootstrap: [
     AppComponent
