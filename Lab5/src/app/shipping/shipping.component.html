@@ -1,9 +1,54 @@
 <h3>Shipping Prices</h3>
+
 <div class="shipping-item" *ngFor="let shipping of shippingCosts | async">
   <span>{{ shipping.type }}</span>
   <span>{{ shipping.price | currency }}</span>
 </div>
 
-<a routerLink="/payment" class="button">
-  Continue to Payment 
- </a>
+
+
+<hr class="solid">
+<div >
+  <h2>Total amount:</h2>
+  <hr class="solid">
+  <span class="cart-item">{{getTotal() | currency}}</span>
+</div>
+<form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">
+      Full Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
+
+  <div>
+      <label for="street">
+        Street Address
+      </label>
+      <input id="street" type="text" formControlName="street">
+    </div>
+  
+    <div>
+      <label for="City">
+        City
+      </label>
+      <input id="city" type="text" formControlName="city">
+    </div>
+
+    <div>
+      <label for="State">
+        State
+      </label>
+      <input id="state" type="text" formControlName="state">
+    </div>
+    <div>
+      <label for="zip">
+        Zip Code
+      </label>
+      <input id="zip" type="text" formControlName="zip">
+    </div>
+  <button class="button" type="submit">Continue to Payment</button>
+
+</form>
+
+
