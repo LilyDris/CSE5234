@@ -24,6 +24,7 @@ shippingForm = this.formBuilder.group({
 
 
 onSubmit(): void {
+    this.cartService.setShippingInfo(this.shippingForm.value)
     this.router.navigate(['/payment']);
 }
 getTotal(): number {

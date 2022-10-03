@@ -18,7 +18,7 @@ export class PaymentComponent implements OnInit {
     console.log("in the payment page")
   }
 
-  cardInfo = new CardInfo('', 123, 2026, 14);
+  cardInfo = new CardInfo('', 123, 1, 2000);
 
   paymentForm = this.formBuilder.group({
     cardNumber: this.cardInfo.cardNumber,

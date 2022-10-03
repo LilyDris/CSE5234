@@ -1,5 +1,6 @@
 import { Product } from './products';
 import { PaymentInfo } from './payment-info';
+import { ShippingInfo } from './shipping-info';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { totalmem } from 'os';
@@ -18,13 +19,20 @@ export class CartService {
     ExpiryMonth: 1,
     ExpiryYear: 2000
   }
-  
+  shippingInfo: ShippingInfo = {
+    FullName: 'Test Name',
+    StreetAddress: 'Test Address',
+    City: 'Test City',
+    State: 'Test State',
+    ZipCode: 43210
+  }
   addToCart(product: Product) {
     this.items.push(product);
   }
   
   total: number=0;
 getTotal(){
+  this.total = 0
   for(let item of this.items){
     this.total=this.total+item.price;
   }
@@ -59,5 +67,17 @@ getTotal(){
     this.paymentInfo.CVV = paymentInfo.cvv
     this.paymentInfo.ExpiryMonth = paymentInfo.expiryMonth
     this.paymentInfo.ExpiryYear = paymentInfo.expiryYear
+  }
+
+  getShippingInfo() {
+    return this.shippingInfo
+  }
+
+  setShippingInfo(shippingInfo: any) {
+    this.shippingInfo.FullName = shippingInfo.name
+    this.shippingInfo.StreetAddress = shippingInfo.street
+    this.shippingInfo.City = shippingInfo.city
+    this.shippingInfo.State = shippingInfo.state
+    this.shippingInfo.ZipCode = shippingInfo.zip
   }
 }

@@ -6,7 +6,7 @@
     <span>{{ item.price | currency }}</span>
 </div>
 <div >
-    <h2>Total amount:</h2>
+    <h2>Total amount (+2.99 for shipping):</h2>
     <hr class="solid">
     <span class="cart-item">{{getTotal() | currency}}</span>
 </div>
@@ -19,11 +19,12 @@
 <p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
 
 <h2>Shipping Info</h2>
-<p>todo :)</p>
+<p>Full Name: {{shippingInfo.FullName}}</p>
+<p>Street Address: {{shippingInfo.StreetAddress}}</p>
+<p>City: {{shippingInfo.City}}</p>
+<p>State: {{shippingInfo.State}}</p>
+<p>Zip Code: {{shippingInfo.ZipCode}}</p>
 
-
-<a routerLink="/confirmation" class="button">
-    <button (click)="onSubmit()">
-        Confirm Order
-    </button>
+<a routerLink="/confirmation" class="button" (click)="onSubmit()">
+    Confirm Order
 </a>

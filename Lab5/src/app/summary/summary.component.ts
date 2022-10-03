@@ -12,6 +12,7 @@ export class SummaryComponent {
   items = this.cartService.getItems();
   total: number;
   paymentInfo = this.cartService.getPaymentInfo();
+  shippingInfo = this.cartService.getShippingInfo();
   
   constructor(
     private cartService: CartService
@@ -23,7 +24,7 @@ export class SummaryComponent {
     for (let item of this.items) {
       this.total += item.price
     }
-    return this.total;
+    return this.total + 2.99;
   }
 
   onSubmit(): void {
