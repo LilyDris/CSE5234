@@ -18,11 +18,18 @@ export class CartService {
     ExpiryMonth: 1,
     ExpiryYear: 2000
   }
-
-/* . . . */
+  
   addToCart(product: Product) {
     this.items.push(product);
   }
+  
+  total: number=0;
+getTotal(){
+  for(let item of this.items){
+    this.total=this.total+item.price;
+  }
+  return this.total;
+}
 
   addToCartAmount(product: Product, amount: Number){
     for(let i=0; i<amount ;i++) {
