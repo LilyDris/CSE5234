@@ -1,5 +1,29 @@
-<p>this is the summary page!</p>
+<h3>Summary Page</h3>
+
+<h2>Items Selected to Purchase</h2>
+<div class="cart-item" *ngFor="let item of items">
+    <span>{{ item.name }}</span>
+    <span>{{ item.price | currency }}</span>
+</div>
+<div >
+    <h2>Total amount:</h2>
+    <hr class="solid">
+    <span class="cart-item">{{getTotal() | currency}}</span>
+</div>
+
+
+<h2>Payment Info</h2>
+<p>Card Number: {{paymentInfo.CardNumber}}</p>
+<p>CVV: {{paymentInfo.CVV}}</p>
+<p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
+<p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
+
+<h2>Shipping Info</h2>
+<p>todo :)</p>
+
 
 <a routerLink="/confirmation" class="button">
-    Confrim Order
+    <button (click)="onSubmit()">
+        Confirm Order
+    </button>
 </a>
