@@ -28,6 +28,7 @@ export class PaymentComponent implements OnInit {
   });
 
   onSubmit(): void {
+      this.cartService.setPaymentInfo(this.paymentForm.value)
       this.router.navigate(['/summary']);
   }
   

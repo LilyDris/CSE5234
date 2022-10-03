@@ -46,4 +46,11 @@ export class CartService {
   getPaymentInfo() {
     return this.paymentInfo
   }
+
+  setPaymentInfo(paymentInfo : any) {
+    this.paymentInfo.CardNumber = paymentInfo.cardNumber
+    this.paymentInfo.CVV = paymentInfo.cvv
+    this.paymentInfo.ExpiryMonth = paymentInfo.expiryMonth
+    this.paymentInfo.ExpiryYear = paymentInfo.expiryYear
+  }
 }
