@@ -5,19 +5,50 @@
   <span>{{ shipping.price | currency }}</span>
 </div>
 
-<section class="example-section" [formGroup]="shippingTypes">
-  <h4>Select your shipping method:</h4>
-  <p><mat-checkbox formControlName="Overnight">Overnight</mat-checkbox></p>
-  <p><mat-checkbox formControlName="TwoDay">2-Day</mat-checkbox></p>
-  <p><mat-checkbox formControlName="Postal">Postal</mat-checkbox></p>
-</section>
+
+
 <hr class="solid">
 <div >
   <h2>Total amount:</h2>
   <hr class="solid">
-  <span class="cart-item">{{total | currency}}</span>
+  <span class="cart-item">{{getTotal() | currency}}</span>
 </div>
+<form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">
+      Full Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
 
-<a routerLink="/shipping" class="button">
-  Continue to Payment 
- </a>
+  <div>
+      <label for="street">
+        Street Address
+      </label>
+      <input id="street" type="text" formControlName="street">
+    </div>
+  
+    <div>
+      <label for="City">
+        City
+      </label>
+      <input id="city" type="text" formControlName="city">
+    </div>
+
+    <div>
+      <label for="State">
+        State
+      </label>
+      <input id="state" type="text" formControlName="state">
+    </div>
+    <div>
+      <label for="zip">
+        Zip Code
+      </label>
+      <input id="zip" type="text" formControlName="zip">
+    </div>
+  <button class="button" type="submit">Continue to Payment</button>
+
+</form>
+
+
