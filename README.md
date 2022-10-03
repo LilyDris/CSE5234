@@ -15,4 +15,6 @@ To run app on local server:
 
 >cd Lab 5
 
+>npm install
+
 >npm start
