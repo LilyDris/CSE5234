@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PaymentComponent } from './payment/payment.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     PaymentComponent,
     SummaryComponent,
     ConfirmationComponent,
+    HomePageComponent,
   ],
   bootstrap: [
     AppComponent
