@@ -32,13 +32,14 @@ import { HomePageComponent } from './home-page/home-page.component';
     MatTableModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
+      { path: 'products', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent},
       { path: 'payment', component: PaymentComponent},
       { path: 'summary', component: SummaryComponent},
-      { path: 'confirmation', component: ConfirmationComponent}
+      { path: 'confirmation', component: ConfirmationComponent},
+      { path: '', component: HomePageComponent}
     ])
   ],
   declarations: [
