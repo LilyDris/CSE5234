@@ -25,6 +25,16 @@ router-outlet + *  {
   padding: 0 16px;
 }
 
+.row-padding{
+  padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+}
+.greyscale{
+  filter: grayscale(75%);
+}
+
 /* Text */
 
 h1,h2,h3,h4,h5,h6{
@@ -164,6 +174,10 @@ app-top-bar h1 {
   padding-bottom: 16px!important;
   text-align: center!important;
   display: block;
+  margin-top: auto;
+  width: 100%;
+  left: 0;
+  bottom: 0;
 
 }
 /*Nav Button */
@@ -206,5 +220,23 @@ app-top-bar h1 {
   background-color: #EEEEEE;
 }
 
+/*About us*/
+.about-containter{
+  padding: 0 8px;
+  margin-bottom: 16px!important;
+  float: left;
+  width: 100%;
+  margin: 0%;
+}
+@media (min-width: 993px){ 
+  .about-containter {
+    width: 24.99999%;
+  }
+}
+@media (min-width: 601px){
+.about-containter{
+    width: 49.99999%;
+}
+}
 
   
