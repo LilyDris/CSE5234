@@ -1,10 +1,17 @@
-<a [routerLink]="['/']">
-  <h1>My Store</h1>
-</a>
+<!-- Navbar (sit on top) -->
+  <div class="bar">
+    <a routerLink="" class="bar-item button"><b>BR</b> Technology</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="bar-right">
+      <a routerLink="/products" class="bar-item button">Products</a>
+      <a href="#about" class="bar-item button">About</a>
+      <a href="#contact" class="bar-item button">Contact</a>
+      <a routerLink="/cart"  class="bar-item button">
+        Checkout<i class="material-icons">shopping_cart</i>
+      </a>
+    </div>
+</div>
 
-<a routerLink="/cart" class="button fancy-button">
-  <i class="material-icons">shopping_cart</i>Checkout
-</a>
 
 <!-- 
 Copyright Google LLC. All Rights Reserved.
