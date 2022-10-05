@@ -22,6 +22,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactComponent } from './contact/contact.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ContactComponent } from './contact/contact.component';
     HomePageComponent,
     AboutUsComponent,
     ContactComponent,
+    FooterComponent,
   ],
   bootstrap: [
     AppComponent
