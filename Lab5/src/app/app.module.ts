@@ -20,6 +20,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { SummaryComponent } from './summary/summary.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   imports: [
@@ -39,6 +41,8 @@ import { HomePageComponent } from './home-page/home-page.component';
       { path: 'payment', component: PaymentComponent},
       { path: 'summary', component: SummaryComponent},
       { path: 'confirmation', component: ConfirmationComponent},
+      { path: 'about-us', component: AboutUsComponent},
+      { path: 'contact', component: ContactComponent},
       { path: '', component: HomePageComponent}
     ])
   ],
@@ -53,6 +57,8 @@ import { HomePageComponent } from './home-page/home-page.component';
     SummaryComponent,
     ConfirmationComponent,
     HomePageComponent,
+    AboutUsComponent,
+    ContactComponent,
   ],
   bootstrap: [
     AppComponent
