@@ -69,30 +69,7 @@ label {
   text-transform: uppercase;
 }
 
-/* Button */
-.button, button {
-  border:none;
-  display:inline-block;
-  padding:8px 16px;
-  vertical-align:middle;
-  overflow:hidden;
-  text-decoration:none;
-  color:inherit;
-  background-color:inherit;
-  text-align:center;
-  cursor:pointer;
-  white-space:nowrap
-}
 
-.button:hover, button:hover{
-  color:#000!important;
-  background-color:#ccc!important
-}
-
-.button:disabled, button:disabled {
-  opacity: 0.5;
-  cursor: auto;
-}
 .image{
   max-width:100%;
   height: auto;
@@ -125,6 +102,21 @@ b{
 }
 i.material-icons{
   font-size: 15px;
+}
+.button, button {
+  color: #fff!important;
+  background-color: #000!important;
+  margin-top: 16px!important;
+  margin-bottom: 16px!important;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
 }
 
 /* Top Bar */
@@ -161,6 +153,30 @@ app-top-bar {
 app-top-bar h1 {
   color: white;
   margin: 0;
+}
+/*Nav Button */
+.nav-button {
+  border:none;
+  display:inline-block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap
+}
+
+.nav-button:hover{
+  color:#000!important;
+  background-color:#ccc!important
+}
+
+.nav-button:disabled{
+  opacity: 0.5;
+  cursor: auto;
 }
 
 /* Checkout Cart, Shipping Prices */
