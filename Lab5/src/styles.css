@@ -93,6 +93,24 @@ label {
   opacity: 0.5;
   cursor: auto;
 }
+.image{
+  max-width:100%;
+  height: auto;
+}
+.center{
+  margin-top: 16px!important;
+  text-align: center!important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+b{
+  color: #fff!important;
+  background-color: #000!important;
+  padding: 8px 16px!important;
+  opacity: 0.75;
+}
 
 /* Fancy Button */
 
