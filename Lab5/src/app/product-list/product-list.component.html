@@ -1,31 +1,51 @@
 <h2>Products</h2>
 
-<div *ngFor="let product of products">
-        <h3>
+<style>
+  .single-article hr {
+    margin: 30px -20px 20px;
+    border: 0;
+    border-top: 1px solid #c9c7c7;
+    
+}
+
+img {
+    width : 80px;
+    height: auto; /*to preserve the aspect ratio of the image*/
+}
+</style>
+<div style="width: 100%; display: table;">
+<div *ngFor="let product of products" style="display: table-row; height: 100px;">
+  <hr/>
+  <div style="width: 30%; display: table-cell;">
+  <img src={{product.image}} alt={{product.description}} >
+  </div>
+  <div style="width: 30%; display: table-cell;">
+        <h2>
             <a [title] = "product.name"
             [routerLink]=" ['/products', product.id]">
 
             {{product.name}}   
-            </a>    
-            {{ product.price | currency}}
-        </h3>
-        <p *ngIf="product.description">
-            Description: {{ product.description }}
-          </p>
-          <form [formGroup]="checkoutForm" (ngSubmit)="addToCart(product, amount)">
+            </a>
+        </h2>
+        <h3 style="font-weight:bold;color: maroon;">{{ product.price | currency}}</h3>
+        </div>
+        <div style="width: 30%; display: table-cell;">
+          <form [formGroup]="checkoutForm" (ngSubmit)="addToCart(product, amount[product.id])">
             <div>
               <label for="amount">
                 Amount
               </label>
-              <input id="amount" type="text" [(ngModel)]="amount" formControlName="amount">
+              <input id="amount" type="number" [(ngModel)]="amount[product.id]" formControlName="amount" value=1>
             </div>
             <button class="button" type="submit">Add to Cart</button>
           
           </form>
+        </div>
 <!-- 
           <button type="button" (click)="share()">
             Share
           </button> -->
+</div>
 </div>
 <!-- 
 Copyright Google LLC. All Rights Reserved.

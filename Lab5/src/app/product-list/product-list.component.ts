@@ -9,11 +9,17 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-  amount = 1;
+  amount:number[] = [];
   products = products;
   product: Product | undefined;
 
   constructor(private cartService: CartService, private formBuilder: FormBuilder){
+  }
+
+  ngOnInit(): void {
+    for (let p of this.products) {
+      this.amount[p.id] = 0; 
+    }
   }
 
   share() {
@@ -23,10 +29,15 @@ export class ProductListComponent {
   addToCart(product: Product, amount: Number) {
     this.cartService.addToCartAmount(product, amount);
     window.alert('Your product has been added to the cart!');
+    for (let p of this.products) {
+      this.amount[p.id] = 0; 
+    }
   }
 
   checkoutForm = this.formBuilder.group({
     product: '',
     amount: 1
   });
+
+  
 }
