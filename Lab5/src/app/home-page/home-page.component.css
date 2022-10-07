@@ -1,0 +1,28 @@
+.home-grid {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 1200px) {
+    .home-grid {
+        flex-direction: column;
+    }
+}
+
+.logo {
+    padding-bottom: 20px;
+}
+
+#home {
+    flex: 3;
+    margin-right: 10px;
+}
+
+#about {
+    flex: 2;
+}
+
+.image {
+    width: 100%;
+}
+
