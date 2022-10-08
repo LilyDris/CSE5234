@@ -15,11 +15,11 @@
 
 #home {
     flex: 3;
-    margin-right: 10px;
 }
 
 #about {
     flex: 2;
+    margin-left: 10px;
 }
 
 .image {
