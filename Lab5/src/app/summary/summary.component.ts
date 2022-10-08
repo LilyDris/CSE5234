@@ -21,6 +21,7 @@ export class SummaryComponent {
    }
 
   getTotal() {
+    this.total = 0
     for (let item of this.items) {
       this.total += item.price
     }

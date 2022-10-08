@@ -4,33 +4,40 @@
     <p>Just click 'Confirm Order' to finalize your purchase!</p>
 </div>
 
-<div class="cart-item" *ngFor="let item of items">
-    <span>{{ item.name }}</span>
-    <span>{{ item.price | currency }}</span>
-</div>
-<div >
-    <h2>Total amount (+2.99 for shipping):</h2>
-    <hr class="solid">
-    <span class="cart-item">{{getTotal() | currency}}</span>
+<div class="summary-info-container">
+    <div class="payment">
+        <h2 class="subheading">Payment Info</h2>
+        <a routerLink="/payment">Change Payment Details</a>
+        <p>Card Number: {{paymentInfo.CardNumber}}</p>
+        <p>CVV: {{paymentInfo.CVV}}</p>
+        <p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
+        <p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
+    </div>
+
+    <div class="shipping">
+        <h2 class="subheading">Shipping Info</h2>
+        <a routerLink="/shipping">Change Shipping Details</a>
+        <p>Full Name: {{shippingInfo.FullName}}</p>
+        <p>Street Address: {{shippingInfo.StreetAddress}}</p>
+        <p>City: {{shippingInfo.City}}</p>
+        <p>State: {{shippingInfo.State}}</p>
+        <p>Zip Code: {{shippingInfo.ZipCode}}</p>
+    </div>
+
+    <div class="confirm">
+        <p>Subtotal: ${{getTotal() - 2.99}}</p>
+        <p>Shipping: $2.99</p>
+        <p class="total">Total: ${{getTotal()}}</p>
+        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit()">
+            Confirm Order
+        </a>
+    </div>
 </div>
 
-<div class="payment">
-    <h2>Payment Info</h2>
-    <p>Card Number: {{paymentInfo.CardNumber}}</p>
-    <p>CVV: {{paymentInfo.CVV}}</p>
-    <p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
-    <p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
+<div class="item-list">
+<h2 class="subheading">Items in Order</h2>
+    <div class="cart-item" *ngFor="let item of items">
+        <span>{{ item.name }}</span>
+        <span>{{ item.price | currency }}</span>
+    </div>
 </div>
-
-<div class="shipping">
-    <h2>Shipping Info</h2>
-    <p>Full Name: {{shippingInfo.FullName}}</p>
-    <p>Street Address: {{shippingInfo.StreetAddress}}</p>
-    <p>City: {{shippingInfo.City}}</p>
-    <p>State: {{shippingInfo.State}}</p>
-    <p>Zip Code: {{shippingInfo.ZipCode}}</p>
-</div>
-
-<a routerLink="/confirmation" class="button" (click)="onSubmit()">
-    Confirm Order
-</a>
