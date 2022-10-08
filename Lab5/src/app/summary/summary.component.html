@@ -1,6 +1,9 @@
-<h3>Summary Page</h3>
+<h1>Please check your order details</h1>
 
-<h2>Items Selected to Purchase</h2>
+<div class="summary-banner">
+    <p>Just click 'Confirm Order' to finalize your purchase!</p>
+</div>
+
 <div class="cart-item" *ngFor="let item of items">
     <span>{{ item.name }}</span>
     <span>{{ item.price | currency }}</span>
@@ -11,19 +14,22 @@
     <span class="cart-item">{{getTotal() | currency}}</span>
 </div>
 
+<div class="payment">
+    <h2>Payment Info</h2>
+    <p>Card Number: {{paymentInfo.CardNumber}}</p>
+    <p>CVV: {{paymentInfo.CVV}}</p>
+    <p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
+    <p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
+</div>
 
-<h2>Payment Info</h2>
-<p>Card Number: {{paymentInfo.CardNumber}}</p>
-<p>CVV: {{paymentInfo.CVV}}</p>
-<p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
-<p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
-
-<h2>Shipping Info</h2>
-<p>Full Name: {{shippingInfo.FullName}}</p>
-<p>Street Address: {{shippingInfo.StreetAddress}}</p>
-<p>City: {{shippingInfo.City}}</p>
-<p>State: {{shippingInfo.State}}</p>
-<p>Zip Code: {{shippingInfo.ZipCode}}</p>
+<div class="shipping">
+    <h2>Shipping Info</h2>
+    <p>Full Name: {{shippingInfo.FullName}}</p>
+    <p>Street Address: {{shippingInfo.StreetAddress}}</p>
+    <p>City: {{shippingInfo.City}}</p>
+    <p>State: {{shippingInfo.State}}</p>
+    <p>Zip Code: {{shippingInfo.ZipCode}}</p>
+</div>
 
 <a routerLink="/confirmation" class="button" (click)="onSubmit()">
     Confirm Order
