@@ -1,4 +1,5 @@
-<form [formGroup]="productContactForm" (ngSubmit)="onSubmit()">
+<div>
+    <form [formGroup]="productContactForm" (ngSubmit)="onSubmit()">
 
     <p>
         <label for="name">Name</label>
@@ -35,4 +36,5 @@
         <input type="text" id="comments" formControlName="comments" ngmodel>
     </p>
     <button class="button" type="submit">Submit</button>
-</form>
+    </form>
+</div>

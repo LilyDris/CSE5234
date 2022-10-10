@@ -8,7 +8,8 @@ import {MatTableModule} from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatCardModule } from '@angular/material/card';
+ 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -38,6 +39,7 @@ import { FeedbackContactComponent } from './feedback-contact/feedback-contact.co
     MatCheckboxModule,
     MatSelectModule,
     MatTableModule,
+    MatCardModule,
     FormsModule,
     MatTabsModule,
     RouterModule.forRoot([
