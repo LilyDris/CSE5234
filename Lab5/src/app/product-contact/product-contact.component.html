@@ -1,0 +1,38 @@
+<form [formGroup]="productContactForm" (ngSubmit)="onSubmit()">
+
+    <p>
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" ngmodel>
+    </p>
+
+    <p>
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" ngmodel>
+    </p>
+
+    <p>
+        <label for="email">Email</label>
+        <input type="text" id="email" formControlName="email" ngmodel>
+    </p>
+
+    <p>
+        <label for="orderNumber">Order Number</label>
+        <input type="text" id="orderNumber" formControlName="orderNumber" ngmodel>
+    </p>
+
+    <p>
+        <label for="product">Product</label>
+        <select formControlName="product" id="product" ngModel>
+            <option selected="" value=""></option>
+            <option [ngValue]="p.id" *ngFor="let p of productList">
+                {{p.name}}
+            </option>
+        </select>
+    </p>
+
+    <p>
+        <label for="comments">Comments</label>
+        <input type="text" id="comments" formControlName="comments" ngmodel>
+    </p>
+    <button class="button" type="submit">Submit</button>
+</form>

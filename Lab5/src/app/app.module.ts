@@ -6,7 +6,8 @@ import {HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -23,6 +24,10 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactComponent } from './contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
+import { ProductContactComponent } from './product-contact/product-contact.component';
+import { ShippingContactComponent } from './shipping-contact/shipping-contact.component';
+import { PaymentContactComponent } from './payment-contact/payment-contact.component';
+import { FeedbackContactComponent } from './feedback-contact/feedback-contact.component';
 
 @NgModule({
   imports: [
@@ -34,6 +39,7 @@ import { FooterComponent } from './footer/footer.component';
     MatSelectModule,
     MatTableModule,
     FormsModule,
+    MatTabsModule,
     RouterModule.forRoot([
       { path: 'products', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
@@ -61,6 +67,10 @@ import { FooterComponent } from './footer/footer.component';
     AboutUsComponent,
     ContactComponent,
     FooterComponent,
+    ProductContactComponent,
+    ShippingContactComponent,
+    PaymentContactComponent,
+    FeedbackContactComponent,
   ],
   bootstrap: [
     AppComponent
