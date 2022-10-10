@@ -1,1 +1,30 @@
-<p>contact works!</p>
+<button (click)="productTab()">Product Support</button>
+<button (click)="shippingTab()">Shipping Support</button>
+<button (click)="paymentTab()">Payment Support</button>
+<button (click)="feedbackTab()">Feedback Support</button>
+
+
+
+<mat-card *ngIf="product===true">
+    <mat-card-content>
+        <app-product-contact></app-product-contact>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="payment===true">
+    <mat-card-content>
+        <app-payment-contact></app-payment-contact>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="shipping===true">
+    <mat-card-content>
+        <app-shipping-contact></app-shipping-contact>
+    </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="feedback===true">
+    <mat-card-content>
+        <app-feedback-contact></app-feedback-contact>
+    </mat-card-content>
+</mat-card>
