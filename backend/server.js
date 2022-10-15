@@ -1,7 +1,17 @@
 var http = require("http");
+const cors = require('cors')
+const bodyParser = require('body-parser')
 var express = require('express');
+
 var app = express();
 var fs = require("fs");
+app.use(cors())
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  }),
+)
 
 app.get('/products', function (req, res) {
     fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {

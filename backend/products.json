@@ -1,4 +1,4 @@
-{
+[{
     "id": 1,
     "name": "Phone XL",
     "price": 799,
@@ -32,4 +32,4 @@
     "price": 99,
     "description": "The best heaphones you don\"t own",
     "image": "https://ss7.vzw.com/is/image/VerizonWireless/apple-airpods-pro-2nd-generation-mqd83am-a-iset?hei=400&fmt=webp"
-  }
+  }]
