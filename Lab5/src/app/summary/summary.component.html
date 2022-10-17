@@ -8,27 +8,27 @@
     <div class="payment">
         <h2 class="subheading">Payment Info</h2>
         <a routerLink="/payment">Change Payment Details</a>
-        <p>Card Number: {{paymentInfo.CardNumber}}</p>
-        <p>CVV: {{paymentInfo.CVV}}</p>
-        <p>Expiry Month: {{paymentInfo.ExpiryMonth}}</p>
-        <p>Expiry Year: {{paymentInfo.ExpiryYear}}</p>
+        <p>Card Number: {{paymentInfo.cardNumber}}</p>
+        <p>CVV: {{paymentInfo.cvv}}</p>
+        <p>Expiry Month: {{paymentInfo.expiryMonth}}</p>
+        <p>Expiry Year: {{paymentInfo.expiryYear}}</p>
     </div>
 
     <div class="shipping">
         <h2 class="subheading">Shipping Info</h2>
         <a routerLink="/shipping">Change Shipping Details</a>
-        <p>Full Name: {{shippingInfo.FullName}}</p>
-        <p>Street Address: {{shippingInfo.StreetAddress}}</p>
+        <p>Full Name: {{shippingInfo.Name}}</p>
+        <p>Street Address: {{shippingInfo.Street}}</p>
         <p>City: {{shippingInfo.City}}</p>
         <p>State: {{shippingInfo.State}}</p>
-        <p>Zip Code: {{shippingInfo.ZipCode}}</p>
+        <p>Zip Code: {{shippingInfo.Zip}}</p>
     </div>
 
     <div class="confirm">
         <p>Subtotal: ${{getTotal() - 2.99}}</p>
         <p>Shipping: $2.99</p>
         <p class="total">Total: ${{getTotal()}}</p>
-        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit(items)">
+        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit()">
             Confirm Order
         </a>
     </div>

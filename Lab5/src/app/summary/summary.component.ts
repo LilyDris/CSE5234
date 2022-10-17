@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { CartService } from '../cart.service';
 import { Product } from '../products';
+import { OrderInfo } from '../shared/models/orderInfo.model';
+import { ShippingInfo } from '../shared/models/shippingInfo.model';
+import { ShippingComponent } from '../shipping/shipping.component';
 
 @Component({
   selector: 'app-summary',
@@ -11,6 +14,8 @@ import { Product } from '../products';
 })
 
 export class SummaryComponent {
+
+  posts:any;
 
   items = this.cartService.getItems();
   total: number;
@@ -38,18 +43,17 @@ export class SummaryComponent {
     return this.total + 2.99;
   }
 
-  onSubmit(items: Product[]): Observable<any> {
+  onSubmit(): Observable<any> {
+
+    console.log(this.items);
     window.alert('Your order has been submitted!');
-      return this.http
-        .post(
-          this.REST_API + '/order',
-          JSON.stringify(items),
-          this.httpOptions
-        )
-        .pipe(retry(1), catchError(this.handleError));
+    const order = new OrderInfo(this.items,this.shippingInfo,this.paymentInfo);
+      const headers = { 'content-type': 'application/json'}  
+      const body=JSON.stringify(order);
+      console.log(body)
+      return this.http.post(this.REST_API + '/order', body,{'headers':headers})
+    }
 
-
-  }
    // Error handling
    handleError(error: any) {
     let errorMessage = '';
