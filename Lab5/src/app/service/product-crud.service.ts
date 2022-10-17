@@ -19,7 +19,10 @@ export class ProductCrudService {
   constructor(private httpClient: HttpClient) {}
 
   GetProducts() {
-    console.log('inside product crud service');
     return this.httpClient.get<Product[]>(`${this.REST_API}/products`);
+  }
+
+  GetProduct(id: Number) {
+    return this.httpClient.get<Product>(`${this.REST_API}/product/${id}`);
   }
 }

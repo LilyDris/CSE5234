@@ -20,6 +20,35 @@ app.get('/products', function (req, res) {
     });
  })
 
+ app.get('/product/:id', function (req, res) {
+   // First read existing users.
+   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
+      var products = JSON.parse( data );
+      var product;
+      for(let p of products) {
+         if (p["id"] == req.params.id) {
+            product = p;
+         }
+      }
+      res.end( JSON.stringify(product));
+   });
+})
+
+// TODO
+app.get('/product/?name=:name', function (req, res) {
+   // First read existing users.
+   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
+      var products = JSON.parse( data );
+      var product;
+      for(let p of products) {
+         if (p["id"] == req.params.id) {
+            product = p;
+         }
+      }
+      res.end( JSON.stringify(product));
+   });
+})
+
 app.post('/addProduct', function (req, res) {
     // First read existing users.
     fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
