@@ -57,6 +57,17 @@ app.post('/addProduct', function (req, res) {
        res.end( JSON.stringify(data));
     });
  })
+
+ app.post('/order', function (req, res) {
+   // First read existing users.
+   var products = req.body;
+   console.log(products);
+   console.log("order");
+   fs.readFile( __dirname + "/" + "order.json", 'utf8', function (err, data) {
+      console.log( data );
+      res.end( data );
+   });
+})
  
  var server = app.listen(8081, function () {
     var host = server.address().address

@@ -4,13 +4,14 @@ import { ShippingInfo } from './shipping-info';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { totalmem } from 'os';
+import { Observable } from 'rxjs';
 /* . . . */
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private http: HttpClient){
+  constructor(private httpClient: HttpClient){
   }
   items: Product[] = [];
   paymentInfo: PaymentInfo = {
@@ -55,7 +56,7 @@ getTotal(){
   }
 
   getShippingPrices(){
-    return this.http.get<{type: string, price: number}[]>('/assets/shipping.json');
+    return this.httpClient.get<{type: string, price: number}[]>('/assets/shipping.json');
   }
 
   getPaymentInfo() {
@@ -80,4 +81,5 @@ getTotal(){
     this.shippingInfo.State = shippingInfo.state
     this.shippingInfo.ZipCode = shippingInfo.zip
   }
+
 }
