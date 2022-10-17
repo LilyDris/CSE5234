@@ -5,6 +5,7 @@ var express = require('express');
 
 var app = express();
 var fs = require("fs");
+var products;
 app.use(cors())
 app.use(bodyParser.json())
 app.use(
@@ -14,15 +15,10 @@ app.use(
 )
 
 app.get('/products', function (req, res) {
-    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-       console.log( data );
-       res.end( data );
-    });
+   res.json(products);
  })
 
  app.get('/product/:id', function (req, res) {
-   // First read existing users.
-   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
       var products = JSON.parse( data );
       var product;
       for(let p of products) {
@@ -31,46 +27,33 @@ app.get('/products', function (req, res) {
          }
       }
       res.end( JSON.stringify(product));
-   });
 })
-
-// TODO
-app.get('/product/?name=:name', function (req, res) {
-   // First read existing users.
-   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-      var products = JSON.parse( data );
-      var product;
-      for(let p of products) {
-         if (p["id"] == req.params.id) {
-            product = p;
-         }
-      }
-      res.end( JSON.stringify(product));
-   });
-})
-
-app.post('/addProduct', function (req, res) {
-    // First read existing users.
-    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-       data = JSON.parse( data );
-       console.log( JSON.stringify(req) );
-       res.end( JSON.stringify(data));
-    });
- })
 
  app.post('/order', function (req, res) {
    // First read existing users.
-   var products = req.body;
-   console.log(products);
-   console.log("order");
-   fs.readFile( __dirname + "/" + "order.json", 'utf8', function (err, data) {
-      console.log( data );
-      res.end( data );
-   });
+   var orderedProducts = req.body;
+   var count = {};
+   for (let orderedProduct of orderedProducts) {
+      if (Number.isNaN(count[orderedProduct.id])) count[orderedProduct.id] = 1;
+      else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+   }
+   console.log(count);
+   for (let p of products) {
+      if (count[p["id"]] > p["count"]) {
+         res.json("failed");
+      }
+   }
+   for (let p of products) {
+      p["count"] = p["count"] - count[p["id"]];
+   }
+   res.json(products);
 })
  
  var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
+    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
+      products = JSON.parse(data);
+   });
     console.log("Example app listening at http://%s:%s", host, port)
  })
