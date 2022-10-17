@@ -34,19 +34,18 @@ app.get('/products', function (req, res) {
    var orderedProducts = req.body;
    var count = {};
    for (let orderedProduct of orderedProducts) {
-      if (Number.isNaN(count[orderedProduct.id])) count[orderedProduct.id] = 1;
+      if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
       else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
    }
-   console.log(count);
    for (let p of products) {
-      if (count[p["id"]] > p["count"]) {
+      if (count[p["id"]] > p["inventory"]) {
          res.json("failed");
       }
    }
    for (let p of products) {
-      p["count"] = p["count"] - count[p["id"]];
+      if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
    }
-   res.json(products);
+   res.json("success");
 })
  
  var server = app.listen(8081, function () {
