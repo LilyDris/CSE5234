@@ -31,8 +31,7 @@ app.get('/products', function (req, res) {
 
  app.post('/order', function (req, res) {
    // First read existing users.
-   var orderedProducts = req.body["items"];
-   console.log(orderedProducts);
+   var orderedProducts = req.body;
    var count = {};
    for (let orderedProduct of orderedProducts) {
       if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
@@ -41,7 +40,6 @@ app.get('/products', function (req, res) {
    for (let p of products) {
       if (count[p["id"]] > p["inventory"]) {
          res.json("failed");
-         console.log('fail')
       }
    }
    for (let p of products) {
