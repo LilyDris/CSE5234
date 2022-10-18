@@ -44,12 +44,13 @@ export class SummaryComponent {
   }
   
 
-  onSubmit(order:{items:Product[], shipping: ShippingInfo, payment: CardInfo}): void {
+  onSubmit(order:{items:Product[], shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
+    console.log(JSON.stringify(order));
     window.alert('Your order has been submitted!');
     this.http
         .post(
           this.REST_API + '/order',
-          JSON.stringify(order)
+          order
         ).subscribe((res)=> {console.log(res)});
 
 

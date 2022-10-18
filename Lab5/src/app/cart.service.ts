@@ -70,7 +70,7 @@ getTotal(){
     this.paymentInfo.expiryYear = paymentInfo.expiryYear
   }
 
-  getShippingInfo() {
+  getShippingInfo(): ShippingInfo {
     return this.shippingInfo;
   }
 
