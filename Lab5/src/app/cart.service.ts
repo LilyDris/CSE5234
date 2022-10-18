@@ -71,7 +71,7 @@ getTotal(){
   }
 
   getShippingInfo() {
-    return this.shippingInfo
+    return this.shippingInfo;
   }
 
   setShippingInfo(shippingInfo: any) {

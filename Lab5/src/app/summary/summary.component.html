@@ -17,7 +17,7 @@
     <div class="shipping">
         <h2 class="subheading">Shipping Info</h2>
         <a routerLink="/shipping">Change Shipping Details</a>
-        <p> Name: {{shippingInfo.Name}}</p>
+        <p>Name: {{shippingInfo.Name}}</p>
         <p>Street Address: {{shippingInfo.Street}}</p>
         <p>City: {{shippingInfo.City}}</p>
         <p>State: {{shippingInfo.State}}</p>
@@ -28,7 +28,7 @@
         <p>Subtotal: ${{getTotal() - 2.99}}</p>
         <p>Shipping: $2.99</p>
         <p class="total">Total: ${{getTotal()}}</p>
-        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit()">
+        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit({items,shippingInfo,paymentInfo})">
             Confirm Order
         </a>
     </div>

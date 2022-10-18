@@ -1,9 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PropertyRead } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { CartService } from '../cart.service';
 import { Product } from '../products';
+import { CardInfo } from '../shared/models/cardInfo.model';
 import { OrderInfo } from '../shared/models/orderInfo.model';
+import { ShippingInfo } from '../shared/models/shippingInfo.model';
 
 
 @Component({
@@ -14,10 +17,10 @@ import { OrderInfo } from '../shared/models/orderInfo.model';
 
 export class SummaryComponent {
 
-  items = this.cartService.getItems();
+  public items = this.cartService.getItems();
   total: number;
-  paymentInfo = this.cartService.getPaymentInfo();
-  shippingInfo = this.cartService.getShippingInfo();
+  public paymentInfo = this.cartService.getPaymentInfo();
+  public shippingInfo = this.cartService.getShippingInfo();
   REST_API: string = 'http://localhost:8081';
    // Http Options
    httpOptions = {
@@ -40,21 +43,14 @@ export class SummaryComponent {
     return this.total + 2.99;
   }
   
-  createOrder(){
-    const order = new OrderInfo(this.items,this.shippingInfo,this.paymentInfo);
-    return order;
-  }
 
-  onSubmit(): Observable<any> {
-    const order= this.createOrder;
+  onSubmit(order:{items:Product[], shipping: ShippingInfo, payment: CardInfo}): void {
     window.alert('Your order has been submitted!');
-      return this.http
+    this.http
         .post(
           this.REST_API + '/order',
-          JSON.stringify(order),
-          this.httpOptions
-        )
-        .pipe(retry(1), catchError(this.handleError));
+          JSON.stringify(order)
+        ).subscribe((res)=> {console.log(res)});
 
 
   }

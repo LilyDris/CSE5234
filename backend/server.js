@@ -31,21 +31,28 @@ app.get('/products', function (req, res) {
 
  app.post('/order', function (req, res) {
    // First read existing users.
-   var orderedProducts = req.body["items"];
-   var count = {};
-   for (let orderedProduct of orderedProducts) {
-      if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
-      else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
-   }
-   for (let p of products) {
-      if (count[p["id"]] > p["inventory"]) {
-         res.json("failed");
-      }
-   }
-   for (let p of products) {
-      if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
-   }
-   res.json("success");
+   // var orderedProducts = req.body["items"];
+   // var count = {};
+   // for (let orderedProduct of orderedProducts) {
+   //    if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
+   //    else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+   // }
+   // for (let p of products) {
+   //    if (count[p["id"]] > p["inventory"]) {
+   //       res.json("failed");
+   //    }
+   // }
+   // for (let p of products) {
+   //    if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
+   // }
+   const {items, shipping, payment}= req.body;
+   res.send({
+      items,
+      shipping,
+      payment
+   })
+
+   console.log(items,shipping,payment);
 })
  
  var server = app.listen(8081, function () {
