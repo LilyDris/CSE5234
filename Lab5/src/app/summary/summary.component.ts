@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { CartService } from '../cart.service';
 import { Product } from '../products';
+import { OrderInfo } from '../shared/models/orderInfo.model';
+
 
 @Component({
   selector: 'app-summary',
@@ -37,13 +39,19 @@ export class SummaryComponent {
     }
     return this.total + 2.99;
   }
+  
+  createOrder(){
+    const order = new OrderInfo(this.items,this.shippingInfo,this.paymentInfo);
+    return order;
+  }
 
-  onSubmit(items: Product[]): Observable<any> {
+  onSubmit(): Observable<any> {
+    const order= this.createOrder;
     window.alert('Your order has been submitted!');
       return this.http
         .post(
           this.REST_API + '/order',
-          JSON.stringify(items),
+          JSON.stringify(order),
           this.httpOptions
         )
         .pipe(retry(1), catchError(this.handleError));
