@@ -19,6 +19,8 @@ export class SummaryComponent {
 
   public items = this.cartService.getItems();
   total: number;
+  result:any;
+  success=true;
   public paymentInfo = this.cartService.getPaymentInfo();
   public shippingInfo = this.cartService.getShippingInfo();
   REST_API: string = 'http://localhost:8081';
@@ -28,6 +30,7 @@ export class SummaryComponent {
       'Content-Type': 'application/json',
     }),
   };
+  
   constructor(
     private cartService: CartService,
     private http: HttpClient
@@ -42,17 +45,24 @@ export class SummaryComponent {
     }
     return this.total + 2.99;
   }
-  
 
   onSubmit(order:{items:Product[], shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
-    console.log(JSON.stringify(order));
-    window.alert('Your order has been submitted!');
     this.http
         .post(
           this.REST_API + '/order',
           order
-        ).subscribe((res)=> {console.log(res)});
+        ).subscribe((res)=> {this.result=res});
 
+    if(this.result=="success"){
+      window.alert('Your order has been submitted!');
+      this.cartService.clearCart();
+    }
+    else{
+      this.success=false;
+      window.alert('We dont have enough stock! Oops');
+    }
+
+    
 
   }
    // Error handling

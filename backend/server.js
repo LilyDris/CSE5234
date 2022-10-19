@@ -32,24 +32,25 @@ app.get('/products', function (req, res) {
  app.post('/order', function (req, res) {
    // First read existing users.
    // var orderedProducts = req.body["items"];
-   // var count = {};
-   // for (let orderedProduct of orderedProducts) {
-   //    if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
-   //    else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
-   // }
-   // for (let p of products) {
-   //    if (count[p["id"]] > p["inventory"]) {
-   //       res.json("failed");
-   //    }
-   // }
-   // for (let p of products) {
-   //    if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
-   // }
+ 
    const items= req.body["items"];
    const shipping = req.body["shippingInfo"];
    const payment = req.body["paymentInfo"];
-   console.log(items,shipping,payment);
-   res.json({'status': 200, 'msg': 'success'})
+   var count = {};
+   var result="success";
+   for (let orderedProduct of items) {
+      if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
+      else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+   }
+   for (let p of products) {
+      if (count[p["id"]] > p["inventory"]) {
+         result="failed";
+      }
+   }
+   for (let p of products) {
+      if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
+   }
+   res.json(result);
 })
  
  var server = app.listen(8081, function () {
