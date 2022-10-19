@@ -23,5 +23,7 @@ Need to run the backend too in order to work
 ## How to run Backend
 
 >cd backend
+
 >npm install
+
 >node server.js
