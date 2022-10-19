@@ -1,30 +1,31 @@
 import { Product } from './products';
-import { PaymentInfo } from './payment-info';
-import { ShippingInfo } from './shipping-info';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { totalmem } from 'os';
+import { Observable } from 'rxjs';
+import { CardInfo } from './shared/models/cardInfo.model';
+import { ShippingInfo } from './shared/models/shippingInfo.model';
 /* . . . */
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private http: HttpClient){
+  constructor(private httpClient: HttpClient){
   }
   items: Product[] = [];
-  paymentInfo: PaymentInfo = {
-    CardNumber: 2,
-    CVV: 727,
-    ExpiryMonth: 1,
-    ExpiryYear: 2000
+  paymentInfo: CardInfo = {
+    cardNumber: '2',
+    cvv: 727,
+    expiryMonth: 1,
+    expiryYear: 2000
   }
   shippingInfo: ShippingInfo = {
-    FullName: 'Test Name',
-    StreetAddress: 'Test Address',
+    Name: 'Test Name',
+    Street: 'Test ',
     City: 'Test City',
     State: 'Test State',
-    ZipCode: 43210
+    Zip: 43210
   }
   addToCart(product: Product) {
     this.items.push(product);
@@ -55,7 +56,7 @@ getTotal(){
   }
 
   getShippingPrices(){
-    return this.http.get<{type: string, price: number}[]>('/assets/shipping.json');
+    return this.httpClient.get<{type: string, price: number}[]>('/assets/shipping.json');
   }
 
   getPaymentInfo() {
@@ -63,21 +64,22 @@ getTotal(){
   }
 
   setPaymentInfo(paymentInfo : any) {
-    this.paymentInfo.CardNumber = paymentInfo.cardNumber
-    this.paymentInfo.CVV = paymentInfo.cvv
-    this.paymentInfo.ExpiryMonth = paymentInfo.expiryMonth
-    this.paymentInfo.ExpiryYear = paymentInfo.expiryYear
+    this.paymentInfo.cardNumber = paymentInfo.cardNumber
+    this.paymentInfo.cvv = paymentInfo.cvv
+    this.paymentInfo.expiryMonth = paymentInfo.expiryMonth
+    this.paymentInfo.expiryYear = paymentInfo.expiryYear
   }
 
-  getShippingInfo() {
-    return this.shippingInfo
+  getShippingInfo(): ShippingInfo {
+    return this.shippingInfo;
   }
 
   setShippingInfo(shippingInfo: any) {
-    this.shippingInfo.FullName = shippingInfo.name
-    this.shippingInfo.StreetAddress = shippingInfo.street
+    this.shippingInfo.Name = shippingInfo.name
+    this.shippingInfo.Street = shippingInfo.street
     this.shippingInfo.City = shippingInfo.city
     this.shippingInfo.State = shippingInfo.state
-    this.shippingInfo.ZipCode = shippingInfo.zip
+    this.shippingInfo.Zip = shippingInfo.zip
   }
+
 }

@@ -5,6 +5,7 @@ var express = require('express');
 
 var app = express();
 var fs = require("fs");
+var products;
 app.use(cors())
 app.use(bodyParser.json())
 app.use(
@@ -14,15 +15,10 @@ app.use(
 )
 
 app.get('/products', function (req, res) {
-    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-       console.log( data );
-       res.end( data );
-    });
+   res.json(products);
  })
 
  app.get('/product/:id', function (req, res) {
-   // First read existing users.
-   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
       var products = JSON.parse( data );
       var product;
       for(let p of products) {
@@ -31,35 +27,37 @@ app.get('/products', function (req, res) {
          }
       }
       res.end( JSON.stringify(product));
-   });
 })
 
-// TODO
-app.get('/product/?name=:name', function (req, res) {
+ app.post('/order', function (req, res) {
    // First read existing users.
-   fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-      var products = JSON.parse( data );
-      var product;
-      for(let p of products) {
-         if (p["id"] == req.params.id) {
-            product = p;
-         }
+   // var orderedProducts = req.body["items"];
+ 
+   const items= req.body["items"];
+   const shipping = req.body["shippingInfo"];
+   const payment = req.body["paymentInfo"];
+   var count = {};
+   var result="success";
+   for (let orderedProduct of items) {
+      if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
+      else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+   }
+   for (let p of products) {
+      if (count[p["id"]] > p["inventory"]) {
+         result="failed";
       }
-      res.end( JSON.stringify(product));
-   });
+   }
+   for (let p of products) {
+      if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
+   }
+   res.json(result);
 })
-
-app.post('/addProduct', function (req, res) {
-    // First read existing users.
-    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
-       data = JSON.parse( data );
-       console.log( JSON.stringify(req) );
-       res.end( JSON.stringify(data));
-    });
- })
  
  var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
+    fs.readFile( __dirname + "/" + "products.json", 'utf8', function (err, data) {
+      products = JSON.parse(data);
+   });
     console.log("Example app listening at http://%s:%s", host, port)
  })
