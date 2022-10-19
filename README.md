@@ -11,6 +11,7 @@ Follow instructions:
 
 https://angular.io/guide/setup-local#install-the-angular-cli
 
+## How to start Front End
 To run app on local server:
 
 >cd lab5
