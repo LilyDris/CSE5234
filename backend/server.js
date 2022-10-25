@@ -45,9 +45,9 @@ app.get('/products', function (req, res) {
    // for (let p of products) {
    //    if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
    // }
-   const {items=[], shipping, payment}= req.body;
+   const {cart, shipping, payment}= req.body;
    
-   console.log(items,shipping,payment);
+   console.log(cart,shipping,payment);
    res.json({'status': 200, 'msg': 'success'})
 })
  

@@ -42,10 +42,13 @@ export class SummaryComponent {
     }
     return this.total + 2.99;
   }
-  
+  createOrder(){
+    const order= new OrderInfo(this.items,this.shippingInfo,this.paymentInfo);
+    return order;
+  }
 
-  onSubmit(order:{items:Product[], shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
-    console.log(JSON.stringify(order));
+  onSubmit(): void {
+    const order= this.createOrder();
     window.alert('Your order has been submitted!');
     this.http
         .post(

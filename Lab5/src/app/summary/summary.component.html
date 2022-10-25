@@ -28,7 +28,7 @@
         <p>Subtotal: ${{getTotal() - 2.99}}</p>
         <p>Shipping: $2.99</p>
         <p class="total">Total: ${{getTotal()}}</p>
-        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit({items,shippingInfo,paymentInfo})">
+        <a routerLink="/confirmation" class="confirm-button" (click)="onSubmit()">
             Confirm Order
         </a>
     </div>
