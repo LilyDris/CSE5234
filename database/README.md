@@ -2,7 +2,7 @@
 
 1. Follow this link: https://www.guru99.com/download-install-sqlite.html
 2. *Optional* : for accessing sqlite in a single command from git bash add this line to ~/.bashrc
-    > alias sqlite='/c/Program\ Files/sqlite/sqlite3.exe'
+    > alias sqlite='/c/Users/lcdrisco/sqlite/sqlite3.exe'
 
 
 ## How to install Sequlize for node.js

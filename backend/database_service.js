@@ -27,8 +27,18 @@ const Order = sequelize.define('Order', {
       key: 'id'
     }
   },
-  count: DataTypes.INTEGER
+  amount: DataTypes.INTEGER,
+  fullName: DataTypes.STRING,
+  street: DataTypes.STRING,
+  city: DataTypes.STRING,
+  state: DataTypes.STRING,
+  zipCode: DataTypes.INTEGER,
+  cardNumber: DataTypes.INTEGER,
+  cvv: DataTypes.INTEGER,
+  expYear: DataTypes.INTEGER,
+  expMonth: DataTypes.INTEGER
 });
+
 
 // Creates or updates the tables
 Product.sync();
@@ -52,6 +62,14 @@ export async function getAllProductsAsync() {
 export async function getProductByIdAsync(productId) {
   const product = await Product.findOne({where: {id: productId}});
   return product;
+}
+
+// Get inventory by product id 
+export async function getProductInventoryAsync(productId) {
+  const inventory = await Product.findOne({
+    where: {id: productId},
+  attributes: ['inventory']})
+  return inventory;
 }
 
 //example for using async function, there is no way around this, we need to implement this way

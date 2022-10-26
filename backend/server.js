@@ -29,21 +29,24 @@ app.use(
       const items= req.body["items"];
       const shipping = req.body["shippingInfo"];
       const payment = req.body["paymentInfo"];
-      var count = {};
-      var result="success";
-      for (let orderedProduct of items) {
-         if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
-         else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
-      }
-      for (let p of products) {
-         if (count[p["id"]] > p["inventory"]) {
-            result="failed";
-         }
-      }
-      for (let p of products) {
-         if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
-      }
-      res.json(result);
+
+      let db = new sqlite3.Database('./databse/production.db');
+      db.run
+      // var count = {};
+      // var result="success";
+      // for (let orderedProduct of items) {
+      //    if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
+      //    else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+      // }
+      // for (let p of products) {
+      //    if (count[p["id"]] > p["inventory"]) {
+      //       result="failed";
+      //    }
+      // }
+      // for (let p of products) {
+      //    if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
+      // }
+      // res.json(result);
    })
    
    var server = app.listen(8081, function () {
