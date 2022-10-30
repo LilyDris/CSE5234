@@ -1,6 +1,9 @@
-import { Sequelize, DataTypes, where} from "sequelize";
+import { Sequelize, DataTypes, where } from "sequelize";
 import fs from "fs";
-const sequelize = new Sequelize('sqlite::\\CSE5234\\database\\production.db');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: '../database/production.db'
+});
 
 const Product = sequelize.define('Product', {
   id: {
@@ -21,7 +24,7 @@ const Order = sequelize.define('Order', {
   },
   productId: {
     type: DataTypes.INTEGER,
-    primaryKey: true, 
+    primaryKey: true,
     references: {
       model: Product,
       key: 'id'
@@ -58,9 +61,9 @@ export async function getAllProductsAsync() {
   return products;
 }
 
-// Get Product by id 
+// Get Product by id
 export async function getProductByIdAsync(productId) {
-  const product = await Product.findOne({where: {id: productId}});
+  const product = await Product.findOne({ where: { id: productId } });
   return product;
 }
 
