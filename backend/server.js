@@ -11,21 +11,23 @@ app.use(
       extended: false,
    }),
    )
-   
+
    app.get('/products', function (req, res) {
       let products = getAllProductsAsync();
-      products.then(result => res.json(result));
+      products.then(result => {
+         res.json(result)
+      });
    })
-   
+
    app.get('/product/:id', function (req, res) {
       let product = getProductByIdAsync(req.params.id);
       res.end( JSON.stringify(product));
    })
-   
+
    app.post('/order', function (req, res) {
       // First read existing users.
       // var orderedProducts = req.body["items"];
-      
+
       const items= req.body["items"];
       const shipping = req.body["shippingInfo"];
       const payment = req.body["paymentInfo"];
@@ -33,7 +35,7 @@ app.use(
       var result="success";
       for (let orderedProduct of items) {
          if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
-         else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+         else count[orderedProduct.id] = count[orderedProduct.id] + 1;
       }
       for (let p of products) {
          if (count[p["id"]] > p["inventory"]) {
@@ -45,7 +47,7 @@ app.use(
       }
       res.json(result);
    })
-   
+
    var server = app.listen(8081, function () {
       var port = server.address().port
       console.log("Example app listening at http://localhost:%s", port)
