@@ -17,6 +17,7 @@ const Product = sequelize.define('Product', {
   inventory: DataTypes.INTEGER
 });
 
+
 const Order = sequelize.define('Order', {
   id: {
     type: DataTypes.INTEGER,
@@ -73,6 +74,22 @@ export async function getProductInventoryAsync(productId) {
     where: {id: productId},
   attributes: ['inventory']})
   return inventory;
+}
+
+export async function createOrder(id,productId,amount,fullName,street,city,state,zipCode,cardNumber,cvv,expYear,expMonth){
+  const order = await Orders.create({id:id,
+    productId:productId,
+    amount:amount,
+    fullName:fullName,
+    street:street,
+    city:city,
+    state:state,
+    zipCode: zipCode,
+    cardNumber: cardNumber,
+    cvv: cvv,
+    expYear: expYear,
+    expMonth: expMonth});
+    console.log(order.id);
 }
 
 //example for using async function, there is no way around this, we need to implement this way

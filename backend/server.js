@@ -1,7 +1,7 @@
 import cors from "cors";
 import bodyParser from "body-parser";
 import  express  from "express";
-import { getAllProductsAsync, getProductByIdAsync } from "./database_service.js";
+import { createOrder, getAllProductsAsync, getProductByIdAsync } from "./database_service.js";
 
 var app = express();
 app.use(cors())
@@ -30,23 +30,23 @@ app.use(
       const shipping = req.body["shippingInfo"];
       const payment = req.body["paymentInfo"];
 
-      let db = new sqlite3.Database('./database/production.db');
-      db.run;
-      // var count = {};
-      // var result="success";
-      // for (let orderedProduct of items) {
-      //    if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
-      //    else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
-      // }
-      // for (let p of products) {
-      //    if (count[p["id"]] > p["inventory"]) {
-      //       result="failed";
-      //    }
-      // }
-      // for (let p of products) {
-      //    if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
-      // }
-      // res.json(result);
+      createOrder();
+
+      var count = {};
+      var result="success";
+      for (let orderedProduct of items) {
+         if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
+         else count[orderedProduct.id] = count[orderedProduct.id] + 1; 
+      }
+      for (let p of products) {
+         if (count[p["id"]] > p["inventory"]) {
+            result="failed";
+         }
+      }
+      for (let p of products) {
+         if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
+      }
+      res.json(result);
    })
    
    var server = app.listen(8081, function () {
