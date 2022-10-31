@@ -30,8 +30,8 @@ app.use(
       const shipping = req.body["shippingInfo"];
       const payment = req.body["paymentInfo"];
 
-      let db = new sqlite3.Database('./databse/production.db');
-      db.run
+      let db = new sqlite3.Database('./database/production.db');
+      db.run;
       // var count = {};
       // var result="success";
       // for (let orderedProduct of items) {
@@ -50,6 +50,6 @@ app.use(
    })
    
    var server = app.listen(8081, function () {
-      var port = server.address().port
-      console.log("Example app listening at http://localhost:%s", port)
-   })
+      var port = server.address().port;
+      console.log("Example app listening at http://localhost:%s", port);
+   });
