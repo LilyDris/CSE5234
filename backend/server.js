@@ -1,7 +1,7 @@
 import cors from "cors";
 import bodyParser from "body-parser";
 import  express  from "express";
-import { getAllProductsAsync, getProductByIdAsync } from "./database_service.js";
+import { createOrder, getAllProductsAsync, getProductByIdAsync } from "./database_service.js";
 
 var app = express();
 app.use(cors())
@@ -31,6 +31,9 @@ app.use(
       const items= req.body["items"];
       const shipping = req.body["shippingInfo"];
       const payment = req.body["paymentInfo"];
+
+      createOrder();
+
       var count = {};
       var result="success";
       for (let orderedProduct of items) {
@@ -49,6 +52,6 @@ app.use(
    })
 
    var server = app.listen(8081, function () {
-      var port = server.address().port
-      console.log("Example app listening at http://localhost:%s", port)
-   })
+      var port = server.address().port;
+      console.log("Example app listening at http://localhost:%s", port);
+   });
