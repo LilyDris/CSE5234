@@ -46,7 +46,8 @@ export class SummaryComponent {
     return this.total + 2.99;
   }
 
-  onSubmit(order:{items:Product[], shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
+  onSubmit(order:{items:Product[], total:Number, shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
+    order.total=this.getTotal();
     this.http
         .post(
           this.REST_API + '/order',

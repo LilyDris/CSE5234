@@ -1,7 +1,7 @@
 import cors from "cors";
 import bodyParser from "body-parser";
 import  express  from "express";
-import { createOrder, getAllProductsAsync, getProductByIdAsync } from "./database_service.js";
+import { createOrder, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync } from "./database_service.js";
 
 var app = express();
 app.use(cors())
@@ -29,25 +29,38 @@ app.use(
       // var orderedProducts = req.body["items"];
 
       const items= req.body["items"];
-      const shipping = req.body["shippingInfo"];
+      const total= req.body["total"];
+      const shipping = req.body["shippingInfo"];   
       const payment = req.body["paymentInfo"];
 
-      createOrder();
-
       var count = {};
-      var result="success";
+      var result;
       for (let orderedProduct of items) {
          if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
          else count[orderedProduct.id] = count[orderedProduct.id] + 1;
       }
-      for (let p of products) {
-         if (count[p["id"]] > p["inventory"]) {
-            result="failed";
-         }
+      for (let p in count) {
+            let itemCount=count[p];
+            let id = Math.floor(Math.random()*100);
+            createOrder(
+               id,
+               p,
+               itemCount,
+               total,
+               shipping.Name,
+               shipping.Street,
+               shipping.City,
+               shipping.State,
+               shipping.Zip,
+               payment.cardNumber,
+               payment.cvv,
+               payment.expiryYear,
+               payment.expiryMonth);
+         
       }
-      for (let p of products) {
-         if (count[p["id"]]) p["inventory"] = p["inventory"] - count[p["id"]];
-      }
+
+
+         
       res.json(result);
    })
 

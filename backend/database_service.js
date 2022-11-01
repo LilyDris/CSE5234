@@ -31,7 +31,8 @@ const Order = sequelize.define('Order', {
       key: 'id'
     }
   },
-  amount: DataTypes.INTEGER,
+  count: DataTypes.NUMBER,
+  total: DataTypes.NUMBER,
   fullName: DataTypes.STRING,
   street: DataTypes.STRING,
   city: DataTypes.STRING,
@@ -72,14 +73,16 @@ export async function getProductByIdAsync(productId) {
 export async function getProductInventoryAsync(productId) {
   const inventory = await Product.findOne({
     where: {id: productId},
-  attributes: ['inventory']})
+  attributes: ['inventory']});
   return inventory;
 }
 
-export async function createOrder(id,productId,amount,fullName,street,city,state,zipCode,cardNumber,cvv,expYear,expMonth){
-  const order = await Orders.create({id:id,
+export async function createOrder(id,productId,count,amount,fullName,street,city,state,zipCode,cardNumber,cvv,expYear,expMonth){
+  const order = await Order.create({
+    id:id,
     productId:productId,
-    amount:amount,
+    count: count,
+    total:amount,
     fullName:fullName,
     street:street,
     city:city,
@@ -89,6 +92,7 @@ export async function createOrder(id,productId,amount,fullName,street,city,state
     cvv: cvv,
     expYear: expYear,
     expMonth: expMonth});
+    Order.sync();
     console.log(order.id);
 }
 
