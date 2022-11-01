@@ -49,12 +49,12 @@ Product.sync();
 Order.sync();
 
 //used to create all the data
-// fs.readFile("products.json", 'utf8', function (err, data) {
-//   let products = JSON.parse(data);
-//   for (let p of products) {
-//     Product.create(p);
-//   }
-// });
+fs.readFile("products.json", 'utf8', function (err, data) {
+  let products = JSON.parse(data);
+  for (let p of products) {
+    Product.create(p);
+  }
+});
 
 // Get all products in the database
 export async function getAllProductsAsync() {
@@ -77,18 +77,34 @@ export async function getProductInventoryAsync(productId) {
 }
 
 export async function createOrder(id,productId,amount,fullName,street,city,state,zipCode,cardNumber,cvv,expYear,expMonth){
-  const order = await Orders.create({id:id,
-    productId:productId,
-    amount:amount,
-    fullName:fullName,
-    street:street,
-    city:city,
-    state:state,
-    zipCode: zipCode,
-    cardNumber: cardNumber,
-    cvv: cvv,
-    expYear: expYear,
-    expMonth: expMonth});
+  const order = await Order.create({
+    //testing with hardcoded values
+    id: /*1*/ id
+    ,
+    productId: /*1*/ productId
+    ,
+    amount: /*1*/ amount
+    ,
+    fullName: /*'Test Name'*/ fullName
+    ,
+    street: /*'Test Street'*/ street
+    ,
+    city: /*'Test City'*/ city
+    ,
+    state: /*'Test State'*/ state
+    ,
+    zipCode: /*12345*/ zipCode
+    ,
+    cardNumber: /*1234567890*/ cardNumber
+    ,
+    cvv: /*727*/ cvv
+    ,
+    expYear: //2027 
+    expYear
+    ,
+    expMonth: //7 
+    expMonth
+  });
     console.log(order.id);
 }
 
