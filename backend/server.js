@@ -39,9 +39,10 @@ app.use(
          if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
          else count[orderedProduct.id] = count[orderedProduct.id] + 1;
       }
+      let id = Math.floor(Math.random()*100);
       for (let p in count) {
             let itemCount=count[p];
-            let id = Math.floor(Math.random()*100);
+
             createOrder(
                id,
                p,
@@ -58,9 +59,7 @@ app.use(
                payment.expiryMonth);
          
       }
-
-
-         
+      
       res.json(result);
    })
 

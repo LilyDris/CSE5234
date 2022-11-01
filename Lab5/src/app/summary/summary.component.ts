@@ -54,14 +54,15 @@ export class SummaryComponent {
           order
         ).subscribe((res)=> {this.result=res});
 
-    if(this.result=="success"){
+    // if(this.result=="success"){
       window.alert('Your order has been submitted!');
       this.cartService.clearCart();
-    }
-    else{
-      this.success=false;
-      window.alert('We dont have enough stock! Oops');
-    }
+      this.result= "success";
+    // }
+    // else{
+    //   this.success=false;
+    //   window.alert('We dont have enough stock! Oops');
+    // }
 
     
 
