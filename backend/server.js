@@ -34,7 +34,7 @@ app.use(
       const payment = req.body["paymentInfo"];
 
       var count = {};
-      var result;
+      var result = "success";
       for (let orderedProduct of items) {
          if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
          else count[orderedProduct.id] = count[orderedProduct.id] + 1;
