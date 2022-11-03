@@ -15,31 +15,63 @@ const Product = sequelize.define('Product', {
 
 
 const Order = sequelize.define('Order', {
-  count: DataTypes.NUMBER,
   total: DataTypes.NUMBER,
+  confirmationNumber: DataTypes.INTEGER
+});
+
+const ShippingInfo = sequelize.define('ShippingInfo', {
   fullName: DataTypes.STRING,
   street: DataTypes.STRING,
   city: DataTypes.STRING,
   state: DataTypes.STRING,
-  zipCode: DataTypes.INTEGER,
+  zipCode: DataTypes.INTEGER
+});
+
+const PaymentInfo = sequelize.define('PaymentInfo', {
   cardNumber: DataTypes.INTEGER,
   cvv: DataTypes.INTEGER,
   expYear: DataTypes.INTEGER,
   expMonth: DataTypes.INTEGER
 });
 
-Product.hasMany(Order, {
+const OrderedProduct = sequelize.define('OrderedProduct', {
+  count: DataTypes.INTEGER
+});
+
+ShippingInfo.hasOne(Order, {
+  foreignKey: {
+    name: "shippingInfoId",
+    allowNull: false
+  }
+});
+PaymentInfo.hasOne(Order, {
+  foreignKey: {
+    name: "paymentInfoId",
+    allowNull: false
+  }
+});
+
+Order.hasMany(OrderedProduct, {
+  foreignKey: {
+    name: "orderId",
+    allowNull: false
+  }
+});
+
+Product.hasMany(OrderedProduct, {
   foreignKey: {
     name: "productId",
     allowNull: false
   }
-
-});
+})
 
 
 // Creates or updates the tables
 Product.sync();
 Order.sync();
+ShippingInfo.sync();
+PaymentInfo.sync();
+OrderedProduct.sync();
 
 //used to create all the data
 // fs.readFile("products.json", 'utf8', function (err, data) {
@@ -75,22 +107,38 @@ export async function getProductInventoryAsync(productId) {
   return inventory;
 }
 
-export async function createOrder(productId, count, amount, fullName, street, city, state, zipCode, cardNumber, cvv, expYear, expMonth) {
-  const order = await Order.create({
-    count: count,
-    productId: productId,
-    total: amount,
+export async function createOrder(amount, fullName, street, city, state, zipCode, cardNumber, cvv, expYear, expMonth, confirmationNumber) {
+  const shippingInfo = await ShippingInfo.create({
     fullName: fullName,
     street: street,
     city: city,
     state: state,
-    zipCode: zipCode,
+    zipCode: zipCode
+  });
+  const paymentInfo = await PaymentInfo.create({
     cardNumber: cardNumber,
     cvv: cvv,
     expYear: expYear,
-    expMonth: expMonth
+    expMonth: expMonth,
+  });
+  PaymentInfo.sync();
+  ShippingInfo.sync();
+  const order = await Order.create({
+    total: amount,
+    paymentInfoId: paymentInfo.id,
+    shippingInfoId: shippingInfo.id,
+    confirmationNumber: confirmationNumber
   });
   Order.sync();
+  return order;
+}
+
+export async function createOrderedProducts(orderId, productId, count) {
+  OrderedProduct.create({
+    orderId: orderId,
+    productId: productId,
+    count: count
+  });
 }
 
 //example for using async function, there is no way around this, we need to implement this way

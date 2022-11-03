@@ -1,7 +1,8 @@
 import cors from "cors";
 import bodyParser from "body-parser";
 import express from "express";
-import { createOrder, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync, updateInventory } from "./database_service.js";
+import axios from "axios";
+import { createOrder, createOrderedProducts, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync, updateInventory } from "./database_service.js";
 
 var app = express();
 app.use(cors())
@@ -24,7 +25,15 @@ app.get('/product/:id', function (req, res) {
    res.end(JSON.stringify(product));
 })
 
+app.post('/process-payment', function (req, res) {
+   const companyName = req.body["companyName"];
+   const companyAccountNumber = req.body["companyAccountNumber"];
+   const payment = req.body["paymentInfo"];
+   res.end(JSON.stringify({ "confirmationNumber": "21346597811" }));
+})
+
 app.post('/order', function (req, res) {
+   console.log(JSON.stringify(req.body));
    const items = req.body["items"];
    const total = req.body["total"];
    const shipping = req.body["shippingInfo"];
@@ -36,7 +45,6 @@ app.post('/order', function (req, res) {
       if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
       else count[orderedProduct.id] = count[orderedProduct.id] + 1;
    }
-   console.log(JSON.stringify(count));
    let products = getAllProductsAsync();
    products.then(result => {
       for (let product of result) {
@@ -50,30 +58,46 @@ app.post('/order', function (req, res) {
 
       if (response === "success") {
          for (let product of result) {
-            if (count[product.id] !== NaN) {
+            if (!isNaN(count[product.id])) {
                updateInventory(product, product.inventory - count[product.id]);
             }
          }
       }
 
       if (response === "success") {
-         for (let p in count) {
-            let itemCount = count[p];
-            createOrder(
-               p,
-               itemCount,
-               total,
-               shipping.Name,
-               shipping.Street,
-               shipping.City,
-               shipping.State,
-               shipping.Zip,
-               payment.cardNumber,
-               payment.cvv,
-               payment.expiryYear,
-               payment.expiryMonth);
-
+         const data = {
+            companyname: "BR Products",
+            companyAccountNumber: "321465978",
+            paymentInfo: payment
          }
+         axios
+            .post('http://localhost:8081/process-payment', data)
+            .then(res => {
+               // console.log(`Status: ${res.status}`)
+               // console.log('Body: ', res.data)
+               let order = createOrder(
+                  total,
+                  shipping.Name,
+                  shipping.Street,
+                  shipping.City,
+                  shipping.State,
+                  shipping.Zip,
+                  payment.cardNumber,
+                  payment.cvv,
+                  payment.expiryYear,
+                  payment.expiryMonth,
+                  res.data["confirmationNumber"]
+               );
+               order.then(orderResult => {
+                  for (let p in count) {
+                     let itemCount = count[p];
+                     createOrderedProducts(orderResult.id, p, itemCount);
+                  }
+               })
+            })
+            .catch(err => {
+               console.error(err)
+            })
       }
 
       res.json(response);
