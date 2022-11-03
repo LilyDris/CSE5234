@@ -6,10 +6,6 @@ const sequelize = new Sequelize({
 });
 
 const Product = sequelize.define('Product', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
-  },
   name: DataTypes.STRING,
   price: DataTypes.REAL,
   description: DataTypes.STRING,
@@ -19,18 +15,6 @@ const Product = sequelize.define('Product', {
 
 
 const Order = sequelize.define('Order', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true
-  },
-  productId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: {
-      model: Product,
-      key: 'id'
-    }
-  },
   count: DataTypes.NUMBER,
   total: DataTypes.NUMBER,
   fullName: DataTypes.STRING,
@@ -42,6 +26,14 @@ const Order = sequelize.define('Order', {
   cvv: DataTypes.INTEGER,
   expYear: DataTypes.INTEGER,
   expMonth: DataTypes.INTEGER
+});
+
+Product.hasMany(Order, {
+  foreignKey: {
+    name: "productId",
+    allowNull: false
+  }
+
 });
 
 
@@ -69,31 +61,32 @@ export async function getProductByIdAsync(productId) {
   return product;
 }
 
-// Get inventory by product id 
+// Get inventory by product id
 export async function getProductInventoryAsync(productId) {
   const inventory = await Product.findOne({
-    where: {id: productId},
-  attributes: ['inventory']});
+    where: { id: productId },
+    attributes: ['inventory']
+  });
   return inventory;
 }
 
-export async function createOrder(id,productId,count,amount,fullName,street,city,state,zipCode,cardNumber,cvv,expYear,expMonth){
+export async function createOrder(id, productId, count, amount, fullName, street, city, state, zipCode, cardNumber, cvv, expYear, expMonth) {
   const order = await Order.create({
-    id:id,
-    productId:productId,
     count: count,
-    total:amount,
-    fullName:fullName,
-    street:street,
-    city:city,
-    state:state,
+    productId: productId,
+    total: amount,
+    fullName: fullName,
+    street: street,
+    city: city,
+    state: state,
     zipCode: zipCode,
     cardNumber: cardNumber,
     cvv: cvv,
     expYear: expYear,
-    expMonth: expMonth});
-    Order.sync();
-    console.log(order.id);
+    expMonth: expMonth
+  });
+  Order.sync();
+  console.log(order.id);
 }
 
 //example for using async function, there is no way around this, we need to implement this way
