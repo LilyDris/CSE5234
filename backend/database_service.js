@@ -55,6 +55,11 @@ export async function getAllProductsAsync() {
   return products;
 }
 
+export async function updateInventory(product, count) {
+  product.inventory = count;
+  await product.save({ fields: ["inventory"] });
+}
+
 // Get Product by id
 export async function getProductByIdAsync(productId) {
   const product = await Product.findOne({ where: { id: productId } });
@@ -70,7 +75,7 @@ export async function getProductInventoryAsync(productId) {
   return inventory;
 }
 
-export async function createOrder(id, productId, count, amount, fullName, street, city, state, zipCode, cardNumber, cvv, expYear, expMonth) {
+export async function createOrder(productId, count, amount, fullName, street, city, state, zipCode, cardNumber, cvv, expYear, expMonth) {
   const order = await Order.create({
     count: count,
     productId: productId,
@@ -86,7 +91,6 @@ export async function createOrder(id, productId, count, amount, fullName, street
     expMonth: expMonth
   });
   Order.sync();
-  console.log(order.id);
 }
 
 //example for using async function, there is no way around this, we need to implement this way
