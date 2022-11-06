@@ -1,13 +1,9 @@
 const Tortoise = require('tortoise')
-const cron = require('node-cron')
 
-const tortoise = new Tortoise(`amqp://rudimk:YouKnowWhat@$localhost:5672`)
+const tortoise = new Tortoise(`amqp://localhost`)
 
-function scheduleMessage(){
-    let payload = {url: 'https://randomuser.me/api'}
-    tortoise
-    .exchange('random-user-exchange', 'direct', { durable:false })
-    .publish('random-user-key', payload)
-}
+tortoise
+    .queue('shipping-queue', { durable: false })
+    .publish({ Hello: 'World New' });
 
-cron.schedule('5 * * * * *', scheduleMessage)
+console.log("done")
