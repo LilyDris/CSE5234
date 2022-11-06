@@ -2,6 +2,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import express from "express";
 import axios from "axios";
+import { publishMessage } from "./publisher.js";
 import { createOrder, createOrderedProducts, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync, updateInventory } from "./database_service.js";
 
 var app = express();
@@ -93,7 +94,8 @@ app.post('/order', function (req, res) {
                      let itemCount = count[p];
                      createOrderedProducts(orderResult.id, p, itemCount);
                   }
-               })
+               });
+               publishMessage(req.body);
             })
             .catch(err => {
                console.error(err)
