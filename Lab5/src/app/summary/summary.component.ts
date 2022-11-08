@@ -6,7 +6,6 @@ import { catchError, first, Observable, retry, take, tap, throwError } from 'rxj
 import { CartService } from '../cart.service';
 import { Product } from '../products';
 import { CardInfo } from '../shared/models/cardInfo.model';
-import { OrderInfo } from '../shared/models/orderInfo.model';
 import { ShippingInfo } from '../shared/models/shippingInfo.model';
 
 
@@ -58,14 +57,15 @@ export class SummaryComponent {
         ).subscribe((res) => {
           this.result=res.toString()
           console.log(this.result);
-          if(this.result=="success"){
-            window.alert('Your order has been submitted!');
-            this.cartService.clearCart();
-            this.router.navigate(['/confirmation']);
-          }
-          else{
+          if(this.result=="failure"){
             window.alert('We dont have enough stock! Oops');
             this.router.navigate(['/']);
+          }
+          else{
+            window.alert('Your order has been submitted!');
+            this.cartService.clearCart();
+            this.cartService.confirmationNumber=this.result;
+            this.router.navigate(['/confirmation']);
           }
         });
 
