@@ -6,6 +6,7 @@ import { publishMessage } from "./publisher.js";
 import { createOrder, createOrderedProducts, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync, updateInventory } from "./database_service.js";
 
 var app = express();
+var orderNum=Math.floor(Math.random()*(999999-100000)+1000000);
 app.use(cors())
 app.use(bodyParser.json())
 app.use(
@@ -30,7 +31,7 @@ app.post('/process-payment', function (req, res) {
    const companyName = req.body["companyName"];
    const companyAccountNumber = req.body["companyAccountNumber"];
    const payment = req.body["paymentInfo"];
-   res.end(JSON.stringify({ "confirmationNumber": "21346597811" }));
+   res.end(JSON.stringify({ "confirmationNumber": orderNum }));
 })
 
 app.post('/order', function (req, res) {
@@ -42,6 +43,7 @@ app.post('/order', function (req, res) {
 
    var count = {};
    var response = "success";
+   
    for (let orderedProduct of items) {
       if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
       else count[orderedProduct.id] = count[orderedProduct.id] + 1;
@@ -66,6 +68,7 @@ app.post('/order', function (req, res) {
       }
 
       if (response === "success") {
+         orderNum=Math.floor(Math.random()*(999999-100000)+1000000);
          const data = {
             companyname: "BR Products",
             companyAccountNumber: "321465978",
@@ -87,7 +90,7 @@ app.post('/order', function (req, res) {
                   payment.cvv,
                   payment.expiryYear,
                   payment.expiryMonth,
-                  res.data["confirmationNumber"]
+                  orderNum
                );
                order.then(orderResult => {
                   for (let p in count) {
@@ -100,6 +103,7 @@ app.post('/order', function (req, res) {
             .catch(err => {
                console.error(err)
             })
+            response=orderNum.toString();
       }
 
       res.json(response);
@@ -110,5 +114,5 @@ app.post('/order', function (req, res) {
 
 var server = app.listen(8081, function () {
    var port = server.address().port;
-   console.log("Example app listening at http://localhost:%s", port);
+   console.log("Example app listening at http://localhost:%s", port);9
 });

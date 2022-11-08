@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PropertyRead } from '@angular/compiler';
 import { Component } from '@angular/core';
-import { catchError, Observable, retry, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, first, Observable, retry, take, tap, throwError } from 'rxjs';
 import { CartService } from '../cart.service';
 import { Product } from '../products';
 import { CardInfo } from '../shared/models/cardInfo.model';
-import { OrderInfo } from '../shared/models/orderInfo.model';
 import { ShippingInfo } from '../shared/models/shippingInfo.model';
 
 
@@ -19,8 +19,8 @@ export class SummaryComponent {
 
   public items = this.cartService.getItems();
   total: number;
-  result:any;
-  success=true;
+  result="";
+  success="/";
   public paymentInfo = this.cartService.getPaymentInfo();
   public shippingInfo = this.cartService.getShippingInfo();
   REST_API: string = 'http://localhost:8081';
@@ -33,7 +33,8 @@ export class SummaryComponent {
   
   constructor(
     private cartService: CartService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.total = 0;
    }
@@ -48,24 +49,27 @@ export class SummaryComponent {
 
   onSubmit(order:{items:Product[], total:Number, shippingInfo: ShippingInfo, paymentInfo: CardInfo}): void {
     order.total=this.getTotal();
+  
     this.http
         .post(
           this.REST_API + '/order',
           order
-        ).subscribe((res)=> {this.result=res});
-
-    // if(this.result=="success"){
-      window.alert('Your order has been submitted!');
-      this.cartService.clearCart();
-      this.result= "success";
-    // }
-    // else{
-    //   this.success=false;
-    //   window.alert('We dont have enough stock! Oops');
-    // }
+        ).subscribe((res) => {
+          this.result=res.toString()
+          console.log(this.result);
+          if(this.result=="failure"){
+            window.alert('We dont have enough stock! Oops');
+            this.router.navigate(['/']);
+          }
+          else{
+            window.alert('Your order has been submitted!');
+            this.cartService.clearCart();
+            this.cartService.confirmationNumber=this.result;
+            this.router.navigate(['/confirmation']);
+          }
+        });
 
     
-
   }
    // Error handling
    handleError(error: any) {

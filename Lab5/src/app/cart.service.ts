@@ -27,6 +27,17 @@ export class CartService {
     State: 'Test State',
     Zip: 43210
   }
+
+  confirmationNumber!: String;
+
+  setConfirmation(num: String){
+    this.confirmationNumber=num;
+  }
+
+  getConfirmation(){
+    return this.confirmationNumber;
+  }
+
   addToCart(product: Product) {
     this.items.push(product);
   }
