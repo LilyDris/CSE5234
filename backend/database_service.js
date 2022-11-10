@@ -5,6 +5,11 @@ const sequelize = new Sequelize({
   storage: '../database/production.db'
 });
 
+const sequelize2 = new Sequelize({
+  dialect: 'sqlite',
+  storage: '../database/orderManagement.db'
+});
+
 const Product = sequelize.define('Product', {
   name: DataTypes.STRING,
   price: DataTypes.REAL,
@@ -14,12 +19,12 @@ const Product = sequelize.define('Product', {
 });
 
 
-const Order = sequelize.define('Order', {
+const Order = sequelize2.define('Order', {
   total: DataTypes.NUMBER,
   confirmationNumber: DataTypes.INTEGER
 });
 
-const ShippingInfo = sequelize.define('ShippingInfo', {
+const ShippingInfo = sequelize2.define('ShippingInfo', {
   fullName: DataTypes.STRING,
   street: DataTypes.STRING,
   city: DataTypes.STRING,
@@ -27,14 +32,14 @@ const ShippingInfo = sequelize.define('ShippingInfo', {
   zipCode: DataTypes.INTEGER
 });
 
-const PaymentInfo = sequelize.define('PaymentInfo', {
+const PaymentInfo = sequelize2.define('PaymentInfo', {
   cardNumber: DataTypes.INTEGER,
   cvv: DataTypes.INTEGER,
   expYear: DataTypes.INTEGER,
   expMonth: DataTypes.INTEGER
 });
 
-const OrderedProduct = sequelize.define('OrderedProduct', {
+const OrderedProduct = sequelize2.define('OrderedProduct', {
   count: DataTypes.INTEGER
 });
 
@@ -58,7 +63,7 @@ Order.hasMany(OrderedProduct, {
   }
 });
 
-Product.hasMany(OrderedProduct, {
+Order.hasMany(OrderedProduct, {
   foreignKey: {
     name: "productId",
     allowNull: false
@@ -74,12 +79,12 @@ PaymentInfo.sync();
 OrderedProduct.sync();
 
 //used to create all the data
-// fs.readFile("products.json", 'utf8', function (err, data) {
-//   let products = JSON.parse(data);
-//   for (let p of products) {
-//     Product.create(p);
-//   }
-// });
+fs.readFile("products.json", 'utf8', function (err, data) {
+  let products = JSON.parse(data);
+  for (let p of products) {
+    Product.create(p);
+  }
+});
 
 // Get all products in the database
 export async function getAllProductsAsync() {
