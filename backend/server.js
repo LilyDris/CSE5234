@@ -6,7 +6,7 @@ import { publishMessage } from "./publisher.js";
 import { createOrder, createOrderedProducts, getAllProductsAsync, getProductByIdAsync, getProductInventoryAsync, updateInventory } from "./database_service.js";
 
 var app = express();
-var orderNum=Math.floor(Math.random()*(999999-100000)+1000000);
+var orderNum = Math.floor(Math.random() * (999999 - 100000) + 1000000);
 app.use(cors())
 app.use(bodyParser.json())
 app.use(
@@ -43,7 +43,7 @@ app.post('/order', function (req, res) {
 
    var count = {};
    var response = "success";
-   
+
    for (let orderedProduct of items) {
       if (!count[orderedProduct.id]) count[orderedProduct.id] = 1;
       else count[orderedProduct.id] = count[orderedProduct.id] + 1;
@@ -59,16 +59,17 @@ app.post('/order', function (req, res) {
          }
       }
 
-      if (response === "success") {
-         for (let product of result) {
-            if (!isNaN(count[product.id])) {
-               updateInventory(product, product.inventory - count[product.id]);
-            }
-         }
-      }
+      // Will be handled by the batch operation from now on
+      // if (response === "success") {
+      //    for (let product of result) {
+      //       if (!isNaN(count[product.id])) {
+      //          updateInventory(product, product.inventory - count[product.id]);
+      //       }
+      //    }
+      // }
 
       if (response === "success") {
-         orderNum=Math.floor(Math.random()*(999999-100000)+1000000);
+         orderNum = Math.floor(Math.random() * (999999 - 100000) + 1000000);
          const data = {
             companyname: "BR Products",
             companyAccountNumber: "321465978",
@@ -103,7 +104,7 @@ app.post('/order', function (req, res) {
             .catch(err => {
                console.error(err)
             })
-            response=orderNum.toString();
+         response = orderNum.toString();
       }
 
       res.json(response);
@@ -114,5 +115,5 @@ app.post('/order', function (req, res) {
 
 var server = app.listen(8081, function () {
    var port = server.address().port;
-   console.log("Example app listening at http://localhost:%s", port);9
+   console.log("Example app listening at http://localhost:%s", port); 9
 });
