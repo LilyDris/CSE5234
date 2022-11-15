@@ -79,12 +79,12 @@ PaymentInfo.sync();
 OrderedProduct.sync();
 
 //used to create all the data
-fs.readFile("products.json", 'utf8', function (err, data) {
-  let products = JSON.parse(data);
-  for (let p of products) {
-    Product.create(p);
-  }
-});
+// fs.readFile("products.json", 'utf8', function (err, data) {
+//   let products = JSON.parse(data);
+//   for (let p of products) {
+//     Product.create(p);
+//   }
+// });
 
 // Get all products in the database
 export async function getAllProductsAsync() {
