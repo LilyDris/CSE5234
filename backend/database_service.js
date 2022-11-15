@@ -21,6 +21,11 @@ const Product = sequelize.define('Product', {
 
 const Order = sequelize2.define('Order', {
   total: DataTypes.NUMBER,
+  processed: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
   confirmationNumber: DataTypes.INTEGER
 });
 
@@ -40,7 +45,11 @@ const PaymentInfo = sequelize2.define('PaymentInfo', {
 });
 
 const OrderedProduct = sequelize2.define('OrderedProduct', {
-  count: DataTypes.INTEGER
+  count: DataTypes.INTEGER,
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
 });
 
 ShippingInfo.hasOne(Order, {
@@ -62,13 +71,6 @@ Order.hasMany(OrderedProduct, {
     allowNull: false
   }
 });
-
-Order.hasMany(OrderedProduct, {
-  foreignKey: {
-    name: "productId",
-    allowNull: false
-  }
-})
 
 
 // Creates or updates the tables
